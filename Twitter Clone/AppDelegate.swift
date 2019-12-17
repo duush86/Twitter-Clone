@@ -1,20 +1,38 @@
 //
 //  AppDelegate.swift
-//  Twitter Clone
+//  MyYoutubeClone
 //
-//  Created by Antonio Orozco on 12/17/19.
+//  Created by Antonio Orozco on 11/28/19.
 //  Copyright © 2019 Antonio Orozco. All rights reserved.
 //
 
 import UIKit
+import AVFoundation
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        var categoryError :NSError?
+               var success: Bool
+               do {
+                   // see https://developer.apple.com/documentation/avfoundation/avaudiosessioncategoryplayback
+                   // and https://developer.apple.com/documentation/avfoundation/avaudiosessionmodemovieplayback
+                   try AVAudioSession.sharedInstance().setCategory(.playback, mode: .moviePlayback, options: .duckOthers)
+                   success = true
+               } catch let error as NSError {
+                   categoryError = error
+                   success = false
+               }
+
+               if !success {
+                   print("AppDelegate Debug - Error setting AVAudioSession category.  Because of this, there may be no sound. \(categoryError!)")
+               }
+        
+
         return true
     }
 
