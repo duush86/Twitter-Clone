@@ -22,9 +22,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //IGNORE Storyboard
         self.window = UIWindow(windowScene: windowScene)
         
-        let homeController = HomeController(collectionViewLayout: UICollectionViewFlowLayout())
+        // homeController = HomeController(collectionViewLayout: UICollectionViewFlowLayout())
         
-        self.window?.rootViewController = UINavigationController(rootViewController: homeController)
+        //self.window?.rootViewController = UINavigationController(rootViewController: homeController)
+        
+        self.window?.rootViewController = UINavigationController(rootViewController: HomeDataSourceController())
         
         self.window?.makeKeyAndVisible()
 
