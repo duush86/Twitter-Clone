@@ -20,15 +20,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         //IGNORE Storyboard
-        self.window = UIWindow(windowScene: windowScene)
+        window = UIWindow(frame: UIScreen.main.bounds)
         
-        // homeController = HomeController(collectionViewLayout: UICollectionViewFlowLayout())
+        let viewController = HomeDataSourceController()
         
-        //self.window?.rootViewController = UINavigationController(rootViewController: homeController)
+        window?.rootViewController =  UINavigationController(rootViewController: viewController)
+    
+        window?.makeKeyAndVisible()
         
-        self.window?.rootViewController = UINavigationController(rootViewController: HomeDataSourceController())
-        
-        self.window?.makeKeyAndVisible()
+        window?.windowScene = windowScene
 
     }
 
