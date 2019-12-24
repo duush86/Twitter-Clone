@@ -20,7 +20,16 @@ class HomeDataSource: Datasource {
     
     }()
     
-    let tweets = ["t1", "t2", "t3"]
+    let tweets: [Tweet] = {
+     
+        let duushUser = User(name: "Antonio Orozco", username: "@duush", bioText: "hey this is duush, what's up!?", profileImage: (UIImage(named: "profile")!))
+        
+        let tweet = Tweet(user: duushUser, message: "Hello, this is is duush and this is a tweet for testing and it needs to be long, kind of long.")
+        
+        let tweet2 = Tweet(user: duushUser, message: "Hello, this is is duush and this is a tweet for testing and it needs to be long, kind of long. This is the seccond tweet for testing. Heello!")
+        
+        return [tweet, tweet2]
+    }()
     
     override func numberOfItems(_ section: Int) -> Int {
         
@@ -55,7 +64,13 @@ class HomeDataSource: Datasource {
     }
     
     override func item(_ indexPath: IndexPath) -> Any? {
-                
+        
+        if indexPath.section == 1 {
+            
+            return tweets[indexPath.row]
+        
+        }
+        
         return users[indexPath.row]
         
     }
