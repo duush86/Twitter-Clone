@@ -16,6 +16,8 @@
 		9486007123B171970087332C /* SetupNavBarFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9486007023B171970087332C /* SetupNavBarFunctions.swift */; };
 		9486007323B272A90087332C /* TweetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9486007223B272A90087332C /* TweetCell.swift */; };
 		9486007523B27A1E0087332C /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9486007423B27A1E0087332C /* Tweet.swift */; };
+		9486007723B57E090087332C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9486007623B57E090087332C /* Extensions.swift */; };
+		9486007A23B65DFF0087332C /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9486007923B65DFF0087332C /* Service.swift */; };
 		948E78BD23A9D8B900C8A94D /* HomeDataSourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948E78BC23A9D8B900C8A94D /* HomeDataSourceController.swift */; };
 		948E78C223AAA52A00C8A94D /* UserHeaderFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948E78C123AAA52A00C8A94D /* UserHeaderFooter.swift */; };
 		948E78C423AAA58000C8A94D /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948E78C323AAA58000C8A94D /* DataSource.swift */; };
@@ -37,6 +39,8 @@
 		9486007023B171970087332C /* SetupNavBarFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupNavBarFunctions.swift; sourceTree = "<group>"; };
 		9486007223B272A90087332C /* TweetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetCell.swift; sourceTree = "<group>"; };
 		9486007423B27A1E0087332C /* Tweet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
+		9486007623B57E090087332C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		9486007923B65DFF0087332C /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		948E78BC23A9D8B900C8A94D /* HomeDataSourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDataSourceController.swift; sourceTree = "<group>"; };
 		948E78C123AAA52A00C8A94D /* UserHeaderFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHeaderFooter.swift; sourceTree = "<group>"; };
 		948E78C323AAA58000C8A94D /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
@@ -87,6 +91,7 @@
 				948E78C023AAA4DE00C8A94D /* View */,
 				948E78BE23AAA4D300C8A94D /* Controller */,
 				9486006F23B171770087332C /* Extensions */,
+				9486007823B65DE60087332C /* Service */,
 				94318A8923A97EC1003D1C3D /* AppDelegate.swift */,
 				94318A8B23A97EC1003D1C3D /* SceneDelegate.swift */,
 				94472E8823B1328900DDFD7B /* Launch Screen.storyboard */,
@@ -100,8 +105,17 @@
 			isa = PBXGroup;
 			children = (
 				9486007023B171970087332C /* SetupNavBarFunctions.swift */,
+				9486007623B57E090087332C /* Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		9486007823B65DE60087332C /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				9486007923B65DFF0087332C /* Service.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		948E78BE23AAA4D300C8A94D /* Controller */ = {
@@ -260,10 +274,12 @@
 				9486007123B171970087332C /* SetupNavBarFunctions.swift in Sources */,
 				948E78C223AAA52A00C8A94D /* UserHeaderFooter.swift in Sources */,
 				9486007323B272A90087332C /* TweetCell.swift in Sources */,
+				9486007A23B65DFF0087332C /* Service.swift in Sources */,
 				94472E8323AC158500DDFD7B /* User.swift in Sources */,
 				94318A8A23A97EC1003D1C3D /* AppDelegate.swift in Sources */,
 				94318A8C23A97EC1003D1C3D /* SceneDelegate.swift in Sources */,
 				948E78BD23A9D8B900C8A94D /* HomeDataSourceController.swift in Sources */,
+				9486007723B57E090087332C /* Extensions.swift in Sources */,
 				94472E8523AD2FE700DDFD7B /* UserCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

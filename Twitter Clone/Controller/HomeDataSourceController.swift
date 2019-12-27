@@ -7,9 +7,11 @@
 //
 
 import LBTAComponents
+import TRON
+import SwiftyJSON
 
 
-class HomeDataSourceController: DatasourceController {
+class HomeDataSourceController:  DatasourceController {
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         
@@ -24,12 +26,15 @@ class HomeDataSourceController: DatasourceController {
         setupNavigationBarItems()
         
         collectionView.backgroundColor = UIColor(r: 232, g: 236, b: 241)
-        
-        let homeDataSource = HomeDataSource()
-        
-        self.datasource = homeDataSource
+                
+        Service.sharedInstance.fetchHomeFeed { (homeDataSource) in
+            
+            self.datasource = homeDataSource
+            
+        }
         
     }
+    
     
     private func setupNavigationBarItems(){
         

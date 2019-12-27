@@ -7,28 +7,54 @@
 //
 
 import LBTAComponents
+import TRON
+import SwiftyJSON
 
-class HomeDataSource: Datasource {
+class HomeDataSource: Datasource, JSONDecodable {
     
-    let users: [User] = {
-      
-        let maUser: [User] = [User(name: "Antonio Orozco", username: "@duush", bioText: "hey this is duush, what's up!?", profileImage: (UIImage(named: "profile")!)),
-                              User(name: "Pájaro Político", username: "@pajaropolitico", bioText: "Periodismo libre con todo el rigor. El sitio de noticias de México es Animal Político. #YoSoyAnimal", profileImage: UIImage(named: "profile_pajaro")!),
-                              User(name: "Kindle Course", username: "@kindleCourse", bioText: "Periodismo libre con todo el rigor. El sitio de noticias de México es Animal Político. #YoSoyAnimal Periodismo libre con todo el rigor. El sitio de noticias de México es Animal Político. #YoSoyAnimal Periodismo libre con todo el rigor. El sitio de noticias de México es Animal Político. #YoSoyAnimal", profileImage: UIImage(named: "profile_pajaro")!)]
+    let tron = TRON(baseURL: "http://localhost")
         
-        return maUser
+        var users: [User]
+        
+        required init(json: JSON) throws {
+            
+            var users = [User]()
+            
+            print("Now ready to parse JSON\n", json)
+            
+            let array = json["users"].array
+            
+            for userJSON in array! {
+                
+                let name = userJSON["name"].stringValue
+                
+                let userName = userJSON["username"].stringValue
+                
+                let bio = userJSON["bio"].stringValue
+                
+                let imageURL = userJSON["profileImageURL"].stringValue
+                
+                let user: User = User(name: name, username: userName, bioText: bio, profileImage: UIImage(named: "placeholder")!, profileImageURL: imageURL as NSString)
+                
+                users.append(user)
+                
+            }
+                        
+            self.users = users
+        }
     
-    }()
     
     let tweets: [Tweet] = {
      
-        let duushUser = User(name: "Antonio Orozco", username: "@duush", bioText: "hey this is duush, what's up!?", profileImage: (UIImage(named: "profile")!))
+//        let duushUser = User(name: "Antonio Orozco", username: "@duush", bioText: "hey this is duush, what's up!?", profileImage: (UIImage(named: "profile")!))
+//
+//        let tweet = Tweet(user: duushUser, message: "Hello, this is is duush and this is a tweet for testing and it needs to be long, kind of long.")
+//
+//        let tweet2 = Tweet(user: duushUser, message: "Hello, this is is duush and this is a tweet for testing and it needs to be long, kind of long. This is the seccond tweet for testing. Heello!")
+//
+//        return [tweet, tweet2]
         
-        let tweet = Tweet(user: duushUser, message: "Hello, this is is duush and this is a tweet for testing and it needs to be long, kind of long.")
-        
-        let tweet2 = Tweet(user: duushUser, message: "Hello, this is is duush and this is a tweet for testing and it needs to be long, kind of long. This is the seccond tweet for testing. Heello!")
-        
-        return [tweet, tweet2]
+        return []
     }()
     
     override func numberOfItems(_ section: Int) -> Int {

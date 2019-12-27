@@ -18,4 +18,6 @@ struct User {
     
     let profileImage: UIImage
     
+    let profileImageURL: NSString?
+    
 }

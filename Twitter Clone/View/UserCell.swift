@@ -31,8 +31,20 @@ class UserCell: DatasourceCell {
             
             bioTextView.text = user.bioText
             
-            profileImageView.image = user.profileImage
+            fetchImage(forUser: user)
             
+            
+        }
+        
+    }
+    
+    func fetchImage(forUser user: User){
+        
+        print("Fetching image")
+        
+        if let profileURL = user.profileImageURL {
+            
+            profileImageView.cacheThumbnail(forThumbnailURL: profileURL)
             
         }
         
@@ -64,9 +76,9 @@ class UserCell: DatasourceCell {
     
     }()
     
-    let profileImageView: UIImageView = {
+    let profileImageView: CustomImageView = {
         
-        let imageView = UIImageView()
+        let imageView = CustomImageView()
         
         imageView.image = UIImage(named: "profile")
         
