@@ -58,9 +58,7 @@ class UserFooter: DatasourceCell {
     override func setupViews() {
         
         super.setupViews()
-        
-        //backgroundColor = .white
-        
+                
         let whiteBackgroundView = UIView()
         
         whiteBackgroundView.backgroundColor = .white

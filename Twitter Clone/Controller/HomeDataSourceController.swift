@@ -13,6 +13,22 @@ import SwiftyJSON
 
 class HomeDataSourceController:  DatasourceController {
     
+    let errorMessageLabel: UILabel = {
+       
+        let label = UILabel()
+        
+        label.text = "Sorry, something went wrong"
+        
+        label.textAlignment = .center
+        
+        label.numberOfLines = 0
+        
+        label.isHidden = true
+        
+        return label
+    }()
+    
+    
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         
         collectionViewLayout.invalidateLayout()
@@ -23,11 +39,32 @@ class HomeDataSourceController:  DatasourceController {
         
         super.viewDidLoad()
         
+        view.addSubview(errorMessageLabel)
+        
+        errorMessageLabel.fillSuperview()
+        
         setupNavigationBarItems()
         
         collectionView.backgroundColor = UIColor(r: 232, g: 236, b: 241)
                 
-        Service.sharedInstance.fetchHomeFeed { (homeDataSource) in
+        Service.sharedInstance.fetchHomeFeed { (homeDataSource, err) in
+            
+            if let err = err {
+                
+                self.errorMessageLabel.isHidden = false
+                                
+                if let apiError = err as? APIError<Service.JSONError> {
+                    
+                    if apiError.response?.statusCode != 200 {
+                        
+                        self.errorMessageLabel.text = "Status code was not 200"
+                        
+                    }
+                }
+                
+                return
+                
+            }
             
             self.datasource = homeDataSource
             
@@ -60,22 +97,48 @@ class HomeDataSourceController:  DatasourceController {
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        if let user = self.datasource?.item(indexPath) as? User {
-        
-            let approximateWidthOfBioTextView = view.frame.width - 12 - 50 - 12 - 2
+        if indexPath.section == 0 {
             
-            let size = CGSize(width: approximateWidthOfBioTextView, height: 1000)
+            guard let user = self.datasource?.item(indexPath) as? User else {
+                
+                return .zero
+                
+            }
+                
+                let estimatedHight = estimatedHightForText(user.bioText)
+                           
+                return CGSize(width: view.frame.width, height: estimatedHight + 74)
+                
             
-            let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)]
+        } else if indexPath.section == 1 {
             
-            let estimateFrame = NSString(string: user.bioText).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
+            guard let tweet = datasource?.item(indexPath) as? Tweet else {
+                return .zero
+            }
             
-            return CGSize(width: view.frame.width, height: estimateFrame.height + 66)
+            
+            let estimatedHight = estimatedHightForText(tweet.message)
+            
+            return CGSize(width: view.frame.width, height: estimatedHight + 74)
             
         }
         
-    
+        
         return CGSize(width: view.frame.width , height: 200)
+        
+    }
+    
+    private func estimatedHightForText(_ text: String) -> CGFloat {
+        
+        let approximateWidthOfBioTextView = view.frame.width - 12 - 50 - 12 - 2
+        
+        let size = CGSize(width: approximateWidthOfBioTextView, height: 1000)
+        
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)]
+        
+        let estimateFrame = NSString(string: text).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
+        
+        return estimateFrame.height
         
     }
     

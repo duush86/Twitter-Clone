@@ -40,7 +40,7 @@ class UserCell: DatasourceCell {
     
     func fetchImage(forUser user: User){
         
-        print("Fetching image")
+       // print("Fetching image")
         
         if let profileURL = user.profileImageURL {
             

@@ -31,7 +31,7 @@ class CustomImageView: UIImageView {
             
             self.image = imageFromCache as? UIImage
             
-            print("cache image")
+           // print("cache image")
             
             return
         }
@@ -69,7 +69,7 @@ class CustomImageView: UIImageView {
                     
                     self.image = imageToCache
                     
-                    print("Loading image")
+                    //print("Loading image")
                     
                     imageCache.setObject(imageToCache, forKey: thumbnailURLString)
                     

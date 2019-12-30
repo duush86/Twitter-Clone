@@ -11,54 +11,28 @@ import TRON
 import SwiftyJSON
 
 class HomeDataSource: Datasource, JSONDecodable {
-    
-    let tron = TRON(baseURL: "http://localhost")
-        
+                
         var users: [User]
+    
+        var tweets: [Tweet]
         
         required init(json: JSON) throws {
+                                                
             
-            var users = [User]()
-            
-            print("Now ready to parse JSON\n", json)
-            
-            let array = json["users"].array
-            
-            for userJSON in array! {
+            guard let usersJsonArray = json["users"].array, let tweetsJSONArray = json["tweets"].array else {
                 
-                let name = userJSON["name"].stringValue
-                
-                let userName = userJSON["username"].stringValue
-                
-                let bio = userJSON["bio"].stringValue
-                
-                let imageURL = userJSON["profileImageURL"].stringValue
-                
-                let user: User = User(name: name, username: userName, bioText: bio, profileImage: UIImage(named: "placeholder")!, profileImageURL: imageURL as NSString)
-                
-                users.append(user)
+                throw NSError(domain: "duush-antonio.com", code: 1, userInfo: [NSLocalizedDescriptionKey: "Users or tweets not valid in JSON"])
                 
             }
-                        
-            self.users = users
+            
+            self.users = usersJsonArray.map({return User(json: $0)})
+            
+            self.tweets = tweetsJSONArray.map({return Tweet(json: $0)})
         }
     
     
-    let tweets: [Tweet] = {
-     
-//        let duushUser = User(name: "Antonio Orozco", username: "@duush", bioText: "hey this is duush, what's up!?", profileImage: (UIImage(named: "profile")!))
-//
-//        let tweet = Tweet(user: duushUser, message: "Hello, this is is duush and this is a tweet for testing and it needs to be long, kind of long.")
-//
-//        let tweet2 = Tweet(user: duushUser, message: "Hello, this is is duush and this is a tweet for testing and it needs to be long, kind of long. This is the seccond tweet for testing. Heello!")
-//
-//        return [tweet, tweet2]
-        
-        return []
-    }()
-    
     override func numberOfItems(_ section: Int) -> Int {
-        
+    
         if section == 1 {
             
             return tweets.count

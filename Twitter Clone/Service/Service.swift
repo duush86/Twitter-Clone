@@ -10,14 +10,7 @@ import Foundation
 import TRON
 import SwiftyJSON
 
-class JSONError: JSONDecodable {
-       
-       required init(json: JSON) throws {
-           
-           print("JSON error\n", json)
-           
-       }
-   }
+
 
 struct Service {
     
@@ -25,21 +18,30 @@ struct Service {
     
     let tron = TRON(baseURL: "http://localhost/")
     
-    func fetchHomeFeed(completion: @escaping (HomeDataSource) -> ()){
+    func fetchHomeFeed(completion: @escaping (HomeDataSource?, Error?) -> ()){
         
         let request: APIRequest<HomeDataSource, JSONError> = tron.swiftyJSON.request("sampleJSON.json")
         
         request.perform(withSuccess: { (homeDataSource) in
             
-            completion(homeDataSource)
+            completion(homeDataSource, nil)
             
         }) { (err) in
             
-            print("Error: \(err.error)")
-            
+            completion(nil, err)
+                        
         }
         
         
+    }
+    
+    class JSONError: JSONDecodable {
+        
+        required init(json: JSON) throws {
+            
+            print("JSON error\n", json)
+            
+        }
     }
     
 }
